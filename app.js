@@ -40,3 +40,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//la linea de abajo permite iniciar el servidor desde el puerto 80 para acceder desde cualquier IP
+app.listen(80,'0.0.0.0');
