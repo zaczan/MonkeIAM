@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const User = require('../models/user');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -21,17 +23,29 @@ router.post('/register',[
         }
         return true;
     })
-    ], function (req, res, nextFunction) {
-  const errors = validationResult(req);
+    ], function (req, res) {
+
+    const name = req.body.name;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()});
   }
-  console.log(req.body.name);
-  console.log(req.body.email);
-  console.log(req.body.username);
-  console.log(req.body.password);
-  console.log(req.body.password2);
-  nextFunction();
+    const newUser = new User({
+        name: name,
+        email: email,
+        username: username,
+        password: password
+    });
+
+    User.createUser(newUser, function (err, user) {
+      if(err) throw err;
+      console.log(user);
+  })
+
 })
 
 module.exports = router;
