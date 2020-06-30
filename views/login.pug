@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title Signin Template for Bootstrap
+        // Bootstrap core CSS
+        link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+        // Custom styles for this template
+        link(href='/stylesheets/sign-in.css', rel='stylesheet')
+    body.text-center
+        form.form-signin(method='post', action='/users/login')
+            h1.h3.mb-3.font-weight-normal Ingrese usuario y contraseña
+            != messages('my_message_template', locals)
+            label.sr-only(for='inputEmail') Usuario
+            input.form-control(type='text', placeholder='Usuario', autofocus='', name='username')
+            label.sr-only(for='inputPassword') Contraseña
+            input.form-control(type='password', placeholder='Contraseña', name='password')
+            button.btn.btn-lg.btn-primary.btn-block(type='submit') Ingresar
+        //
+          Bootstrap core JavaScript
+          ==================================================
+        // Placed at the end of the document so the pages load faster
+        script(src='/javascripts/jquery.min.js')
+        script(src='/javascripts/popper.js')
+        script(src='/javascripts/bootstrap.js')

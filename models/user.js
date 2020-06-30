@@ -14,16 +14,7 @@ const UserSchema = new mongoose.Schema({
     password: String
 });
 
-const User = module.exports = mongoose.model('users', UserSchema);
-
-module.exports.getUserById = function(id, callback){
-    User.findById(id, callback);
-}
-
-module.exports.getUserByUsername = function(username, callback){
-    var query = {username: username};
-    User.findOne(query, callback);
-}
+module.exports = mongoose.model('users', UserSchema);
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
