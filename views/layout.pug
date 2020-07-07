@@ -1,5 +1,5 @@
 doctype html
-html(lang='en')
+html(lang='es-MX')
     head
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -9,9 +9,25 @@ html(lang='en')
         title Inicio
         // Custom fonts for this template
         link(href='/stylesheets/all.min.css', rel='stylesheet', type='text/css')
-        link(href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i', rel='stylesheet')
+        //link(href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i', rel='stylesheet')
+        link(href='/stylesheets/css.css', rel='stylesheet', type='text/css')
         // Custom styles for this template
         link(href='/stylesheets/sb-admin-2.min.css', rel='stylesheet')
+        // datatables
+        //link(href='https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css', rel='stylesheet')
+        link(href='/stylesheets/dataTables.bootstrap4.css', rel='stylesheet')
+        script(type='text/javascript', language='javascript', src='/javascripts/jquery-3.5.1.js')
+        //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/jquery.dataTables.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/dataTables.bootstrap4.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/moment.min.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/datetime-moment.js')
+        //ddd, MMM DD YYYY, H:m:s do ZZ
+        script.init(type='text/javascript').
+            $(document).ready(function () {
+                $.fn.dataTable.moment('dddd, MMMM DDD, YYYY, h:mm:ss A');
+                $('#logs').DataTable();
+            });
     body#page-top
         // Page Wrapper
         #wrapper
@@ -60,7 +76,7 @@ html(lang='en')
                     #collapsePages.collapse(aria-labelledby='headingPages', data-parent='#accordionSidebar')
                         .bg-white.py-2.collapse-inner.rounded
                             h6.collapse-header Registros:
-                            a.collapse-item(href='/') Logs
+                            a.collapse-item(href='/bitacora') Logs
                             .collapse-divider
                             h6.collapse-header Reportes:
                             a.collapse-item(href='/') Modificacion
@@ -96,7 +112,7 @@ html(lang='en')
                         // Topbar Search
                         form.d-none.d-sm-inline-block.form-inline.mr-auto.ml-md-3.my-2.my-md-0.mw-100.navbar-search
                             .input-group
-                                input.form-control.bg-light.border-0.small(type='text', placeholder='Search for...', aria-label='Search', aria-describedby='basic-addon2')
+                                input.form-control.bg-light.border-0.small(type='text', placeholder='Busca por...', aria-label='Search', aria-describedby='basic-addon2')
                                 .input-group-append
                                     button.btn.btn-primary(type='button')
                                         i.fas.fa-search.fa-sm
@@ -120,7 +136,7 @@ html(lang='en')
                             // Nav Item - User Information
                             li.nav-item.dropdown.no-arrow
                                 a#userDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    span.mr-2.d-none.d-lg-inline.text-gray-600.small Usuario
+                                    span.mr-2.d-none.d-lg-inline.text-gray-600.small #{username}
                                 // Dropdown - User Information
                                 .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in(aria-labelledby='userDropdown')
                                     a.dropdown-item(href='#')
@@ -146,7 +162,7 @@ html(lang='en')
                     footer.sticky-footer.bg-white
                         .container.my-auto
                             .copyright.text-center.my-auto
-                                span Your Website 2020
+                                span OSI 2020
                     // End of Footer
                     // End of Content Wrapper
                     // End of Page Wrapper
@@ -166,9 +182,9 @@ html(lang='en')
                                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
                                     a.btn.btn-primary(href='/users/logout') Logout
                     // Bootstrap core JavaScript
-                    script(src='/javascripts/jquery.min.js')
                     script(src='/javascripts/bootstrap.bundle.min.js')
                     // Core plugin JavaScript
                     script(src='/javascripts/jquery.easing.min.js')
                     // Custom scripts for all pages
                     script(src='/javascripts/sb-admin-2.min.js')
+

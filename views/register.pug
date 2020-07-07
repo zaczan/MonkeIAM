@@ -9,18 +9,18 @@ block content
             div.alert.alert-danger #{error.msg}
     form(method='post', action='/users/register')
         .form-group
-            label Name
-            input.form-control(name='name', type='text', placeholder='Enter Name')
+            label Nombre
+            input.form-control(name='name', type='text', placeholder='Ingrese el Nombre')
         .form-group
             label Email
-            input.form-control(name='email', type='email', placeholder='Enter Email')
+            input.form-control(name='email', type='email', placeholder='Ingrese Email')
         .form-group
-            label Username
-            input.form-control(name='username', type='text', placeholder='Enter Username')
+            label Usuario
+            input.form-control(name='username', type='text', placeholder='Ingrese Usuario')
         .form-group
-            label Password
-            input.form-control(name='password', type='password', placeholder='Enter Password')
+            label Contraseña
+            input.form-control(name='password', type='password', placeholder='Ingrese contraseña')
         .form-group
-            label Confirm Password
-            input.form-control(name='password2', type='password', placeholder='Confirm Password')
+            label Confirme contraseña
+            input.form-control(name='password2', type='password', placeholder='Vuelva a escribir la contraseña')
         input.btn.btn-primary(type='submit', name='submit', value='Register')

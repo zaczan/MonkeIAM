@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    .d-sm-flex.align-items-center.justify-content-between.mb-4
+        h1.h3.mb-0.text-gray-800 Bitacora
+    table#logs
+            thead
+                tr
+                    th Username
+                    th Timestamp
+                    th Action
+                    th Activity
+            tbody
+                each mongo_result, i in docs
+                    tr
+                        td= mongo_result.username
+                        td= mongo_result.timestamp.toLocaleDateString(undefined, options)
+                        td= mongo_result.action
+                        td= mongo_result.activity
