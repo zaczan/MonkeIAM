@@ -1,3 +1,13 @@
-const mongoose = require('mongoose');
+let knex = require('knex');
 
-mongoose.connect('mongodb://34.219.102.133:27017/nodeauth', {useNewUrlParser: true, useUnifiedTopology: true});
+module.exports = knex({
+    client: 'pg', // pg, mssql, etc
+
+    connection: {
+        database:    'monkeiam',
+        host:        '34.214.159.87',
+        password:    'example',
+        user:        'postgres',
+        dateStrings: true
+    }
+});

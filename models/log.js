@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const logSchema = new mongoose.Schema({
+var logSchema = new mongoose.Schema({
     username: String,
-    timestamp: {type: Date, default: Date.now()},
+    timestamp: Date,
     action: String,
     activity: String
 

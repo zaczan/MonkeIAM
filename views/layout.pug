@@ -9,24 +9,64 @@ html(lang='es-MX')
         title Inicio
         // Custom fonts for this template
         link(href='/stylesheets/all.min.css', rel='stylesheet', type='text/css')
-        //link(href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i', rel='stylesheet')
         link(href='/stylesheets/css.css', rel='stylesheet', type='text/css')
         // Custom styles for this template
         link(href='/stylesheets/sb-admin-2.min.css', rel='stylesheet')
-        // datatables
-        //link(href='https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css', rel='stylesheet')
+        // editor datatables
+        //stylesheets
         link(href='/stylesheets/dataTables.bootstrap4.css', rel='stylesheet')
+        //link(href='/stylesheets/buttons.dataTables.min.css', rel='stylesheet')
+        link(href='/stylesheets/buttons.bootstrap4.css', rel='stylesheet')
+        link(href='/stylesheets/select.dataTables.css', rel='stylesheet')
+        link(href='/stylesheets/rowGroup.dataTables.css', rel='stylesheet')
+        link(href='/stylesheets/editor.dataTables.min.css', rel='stylesheet')
+        //javascripts
         script(type='text/javascript', language='javascript', src='/javascripts/jquery-3.5.1.js')
-        //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')
         script(type='text/javascript', language='javascript', src='/javascripts/jquery.dataTables.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/dataTables.buttons.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/dataTables.select.js')
         script(type='text/javascript', language='javascript', src='/javascripts/dataTables.bootstrap4.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/buttons.bootstrap4.js')
+        script(type='text/javascript', language='javascript', src='/javascripts/dataTables.editor.min.js')
         script(type='text/javascript', language='javascript', src='/javascripts/moment.min.js')
         script(type='text/javascript', language='javascript', src='/javascripts/datetime-moment.js')
+
         //ddd, MMM DD YYYY, H:m:s do ZZ
         script.init(type='text/javascript').
             $(document).ready(function () {
                 $.fn.dataTable.moment('dddd, MMMM DDD, YYYY, h:mm:ss A');
                 $('#logs').DataTable();
+            });
+        script.init(type='text/javascript').
+            var editor
+            $(document).ready(function () {
+                editor = new $.fn.dataTable.Editor({
+                    ajax: "/user/data",
+                    table: "#example",
+                    fields: [{
+                        label: "id:",
+                        name: "id"
+                    }, {
+                        label: "username:",
+                        name: "username"
+                    }
+                    ]
+                });
+
+                $('#example').DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/user/data",
+                    columns: [
+                        {data: "id"},
+                        {data: "username"}
+                    ],
+                    select: true,
+                    buttons: [
+                        {extend: "create", editor: editor},
+                        {extend: "edit", editor: editor},
+                        {extend: "remove", editor: editor}
+                    ]
+                });
             });
     body#page-top
         // Page Wrapper
@@ -59,7 +99,7 @@ html(lang='es-MX')
                     #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionSidebar')
                         .bg-white.py-2.collapse-inner.rounded
                             h6.collapse-header Opciones:
-                            a.collapse-item(href='buttons.html') Usuarios Internos
+                            a.collapse-item(href='/user') Usuarios Internos
                             a.collapse-item(href='cards.html') Usuarios externos
                             a.collapse-item(href='cards.html') Altas y Bajas
                 // Nav Item - Utilities Collapse Menu
@@ -92,8 +132,10 @@ html(lang='es-MX')
                     span Usuarios Sistema
                   #collapseUsers.collapse(aria-labelledby='headingPages', data-parent='#accordionSidebar')
                     .bg-white.py-2.collapse-inner.rounded
-                      h6.collapse-header Alta:
-                      a.collapse-item(href='/users/register') Admin
+                      h6.collapse-header Admin:
+                      a.collapse-item(href='/users/register') Alta
+                      a.collapse-item(href='/users/update') Modificacón
+                      a.collapse-item(href='/users/delete') Baja
                 // Divider
                 hr.sidebar-divider.d-none.d-md-block
                 // Sidebar Toggler (Sidebar)
