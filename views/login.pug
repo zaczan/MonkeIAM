@@ -14,7 +14,10 @@ html(lang='en')
     body.text-center
         form.form-signin(method='post', action='/users/login')
             h1.h3.mb-3.font-weight-normal Ingrese usuario y contraseña
-            != messages('my_message_template', locals)
+            != messages()
+            if success
+                each succes, i in success
+                    div.alert.alert-danger #{succes.msg}
             label.sr-only(for='inputEmail') Usuario
             input.form-control(type='text', placeholder='Usuario', autofocus='', name='username')
             label.sr-only(for='inputPassword') Contraseña

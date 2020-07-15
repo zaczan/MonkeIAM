@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb://34.214.159.87:27017/nodeauth', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://XXX.XXX.XXX.XXX:27017/nodeauth', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=> console.log('Conexión de la base de datos exitosa!!'))
     .catch(err => console.error(err));
 

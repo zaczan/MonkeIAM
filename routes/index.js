@@ -17,7 +17,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/user', ensureAuthenticated, async function(req,res) {
-    res.render('users', {username: req.user.username});
+    res.render('users', {username: req.user._json.sAMAccountName});
 })
 
 
@@ -33,7 +33,7 @@ router.all('/user/data', ensureAuthenticated, async function(req, res,next) {
     if(req.body.action !== undefined) {
         for (i in req.body.data){
              const userAction = {
-                 username: req.user.username,
+                 username: req.user._json.sAMAccountName,
                  timestamp: Date.now(),
                  action: req.body.action,
                  activity: 'id: ' + req.body.data[i].id + 'username: ' + req.body.data[i].username
@@ -42,7 +42,6 @@ router.all('/user/data', ensureAuthenticated, async function(req, res,next) {
              Logs.create(userAction);
         }
     }
-    //res.render('bitacora', { username: req.user.username, data: JSON.stringify( editor.data() )});
     res.send( JSON.stringify( editor.data() ) );
 
 } );
@@ -50,9 +49,7 @@ router.all('/user/data', ensureAuthenticated, async function(req, res,next) {
 router.get('/bitacora', ensureAuthenticated, function (req, res) {
    Logs.find( function (err, docs) {
        const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-       //console.log(docs);
-     res.render('bitacora', { username: req.user.username, docs: docs, options: options});
-     //res.render('bitacora', { username: req.user.username});
+     res.render('bitacora', { username: req.user._json.sAMAccountName, docs: docs, options: options});
    });
 });
 

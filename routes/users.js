@@ -15,13 +15,13 @@ const Log = require('../models/log');
 passport.use(new ActiveDirectoryStrategy({
     integrated: false,
     ldap: {
-        url: 'ldap://ec2-34-214-159-87.us-west-2.compute.amazonaws.com',
+        url: 'ldap://XXX.XXX.XXX.XXX',
         baseDN: 'CN=Users,DC=example,DC=com',
         username: 'ZACZAN@example.com',
         password: 'password'
     }
 }, function (profile, ad, done) {
-    ad.isUserMemberOf(profile._json.dn, 'CN=Users,DC=ohsecure,DC=com', function (err, isMember) {
+    ad.isUserMemberOf(profile._json.dn, 'CN=Users,DC=example,DC=com', function (err, isMember) {
         if (err) return done(err)
         return done(null, profile)
     })
@@ -47,6 +47,13 @@ router.get('/login', function (req, res, next) {
 const opts = { failWithError: true }
 router.post('/login', passport.authenticate('ActiveDirectory', opts), function(req, res) {
     //res.json(req.user);
+    const userlogs = {
+        username: req.user._json.sAMAccountName,
+        timestamp: Date.now(),
+        action: 'login',
+        activity: null
+    }
+    Log.create(userlogs);
     res.redirect('/');
 }, function (err) {
     res.status(401).send('Not Authenticated')
@@ -99,7 +106,7 @@ passport.deserializeUser(function(user, done) {
 //));
 
 router.get('/register', ensureAuthenticated, function(req, res, next) {
-    res.render('register',{username: req.user.username});
+    res.render('register',{username: req.user._json.sAMAccountName});
     next();
 });
 
@@ -127,7 +134,7 @@ router.post('/register',[
     const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //return res.status(422).json({errors: errors.array()});
-    return res.render('register', {username: req.user.username, errors: errors.array()});
+    return res.render('register', {username: req.user._json.sAMAccountName, errors: errors.array()});
   }
     const newUser = new User({
         name: name,
@@ -165,7 +172,7 @@ function ensureAuthenticated(req, res, next){
 
 router.get('/logout', function (req, res) {
     const userlogout = {
-        username: req.user.username,
+        username: req.user._json.sAMAccountName,
         timestamp: Date.now(),
         action: 'logout',
         activity: null

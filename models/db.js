@@ -5,8 +5,8 @@ module.exports = knex({
 
     connection: {
         database:    'monkeiam',
-        host:        '34.214.159.87',
-        password:    'example',
+        host:        'XXX.XXX.XXX.XXX',
+        password:    'password',
         user:        'postgres',
         dateStrings: true
     }
